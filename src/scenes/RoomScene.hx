@@ -1,4 +1,4 @@
-package;
+package scenes;
 
 import backgrounds.Background;
 import openfl.display.Sprite;
@@ -6,11 +6,12 @@ import openfl.events.Event;
 import openfl.events.MouseEvent;
 import openfl.Lib;
 import scenary.BackgroundItem;
+import scenes.Scene;
 /**
  * ...
  * @author
  */
-class RoomScene extends Sprite implements Scene
+class RoomScene extends Sprite implements scenes.Scene
 {
 	private var background:Background;
 	private var bed:scenary.BackgroundItem;

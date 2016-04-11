@@ -1,5 +1,8 @@
 package;
+
 import openfl.display.Sprite;
+import openfl.Lib;
+import scenes.RoomScene;
 
 /**
  * ...
@@ -7,10 +10,14 @@ import openfl.display.Sprite;
  */
 class SceneManager extends Sprite
 {
-
+	public var roomScene:RoomScene;
+	
 	public function new() 
 	{
 		super();
+		
+		roomScene = new RoomScene();
+		addChild(roomScene);
 	}
 	
 }

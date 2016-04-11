@@ -5,7 +5,7 @@ import openfl.events.Event;
 import openfl.events.MouseEvent;
 import openfl.Lib;
 import buttons.StartButton;
-import RoomScene;
+import SceneManager;
 
 /**
  * ...
@@ -15,7 +15,7 @@ class Main extends Sprite
 {
 	private var startButton:buttons.StartButton;
 	public static var currentScene:Main;
-	public var newScene:RoomScene;
+	public var newSceneManager:SceneManager;
 	var inited:Bool;
 	
 	// Entry Point
@@ -72,8 +72,8 @@ class Main extends Sprite
 		trace('Start button clicked.');
 		Lib.current.removeChild(currentScene);
 		
-		newScene = new RoomScene(); 
-		Lib.current.addChild(newScene);
+		newSceneManager = new SceneManager(); 
+		Lib.current.addChild(newSceneManager);
 	}
 
 }
