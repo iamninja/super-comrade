@@ -17,10 +17,10 @@ class Hud extends Sprite
 		
 	}
 	
-	public function showDialogBox(dialogText:String, portraitPath:String = "img/portraits/hero.jpg")
+	public function showDialogBox(dialogText:String, portraitPath:String = "img/portraits/herop.png")
 	{
 		trace(dialogText);
-		dialogBox = new DialogBox();
+		dialogBox = new DialogBox(dialogText, portraitPath);
 		dialogBox.addEventListener(MouseEvent.CLICK, dialogClicked);
 		addChild(dialogBox);
 	}
