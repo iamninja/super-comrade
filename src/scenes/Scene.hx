@@ -1,5 +1,7 @@
 package scenes;
+
 import backgrounds.Background;
+import hud.Hud;
 
 /**
  * @author 

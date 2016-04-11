@@ -1,6 +1,7 @@
 package scenes;
 
 import backgrounds.Background;
+import hud.Hud;
 import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.events.MouseEvent;
@@ -11,11 +12,12 @@ import scenes.Scene;
  * ...
  * @author
  */
-class RoomScene extends Sprite implements scenes.Scene
+class RoomScene extends Sprite implements Scene
 {
 	private var background:Background;
-	private var bed:scenary.BackgroundItem;
+	private var bed:BackgroundItem;
 	public var _isActive:Bool;
+	public static var _hud:Hud;
 	var inited:Bool;
 	
 	// Entry Point
@@ -31,8 +33,11 @@ class RoomScene extends Sprite implements scenes.Scene
 		if (inited) return;
 		inited = true;
 		
+		// Background
 		background = new Background("img/backgrounds/roomComradeD.jpg");
 		this.addChild(background);
+		
+		// Bed in background
 		var bedPoints = [
 						[0, 600],
 						[0, 543],
@@ -44,12 +49,16 @@ class RoomScene extends Sprite implements scenes.Scene
 						[0, 600]
 					];
 		bed = new BackgroundItem(bedPoints, true);
+		var bedDialog = showItemDialog.bind(_, "That's the bed");
 		this.addChild(bed);
+		
+		bed.addEventListener(MouseEvent.CLICK, bedDialog);
 		
 	}
 
-	public function new()
+	public function new(hud:Hud)
 	{
+		_hud = hud;
 		super();
 		addEventListener(Event.ADDED_TO_STAGE, added);
 		
@@ -70,12 +79,18 @@ class RoomScene extends Sprite implements scenes.Scene
 		// static entry point
 		Lib.current.stage.align = openfl.display.StageAlign.TOP_LEFT;
 		Lib.current.stage.scaleMode = openfl.display.StageScaleMode.NO_SCALE;
-		Lib.current.addChild(new RoomScene());
+		Lib.current.addChild(new RoomScene(_hud));
 	}
 	
 	private function startGame()
 	{
 		trace("Start!!");
+	}
+	
+	private function showItemDialog(e:Dynamic, dialogText:String)
+	{
+		_hud.hideDialogBox();
+		_hud.showDialogBox(dialogText);
 	}
 
 }
