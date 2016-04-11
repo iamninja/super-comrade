@@ -15,7 +15,7 @@ import scenes.Scene;
 class RoomScene extends Sprite implements Scene
 {
 	private var background:Background;
-	private var bed:BackgroundItem;
+	public var bed:BackgroundItem;
 	public var _isActive:Bool;
 	public static var _hud:Hud;
 	var inited:Bool;
@@ -50,9 +50,11 @@ class RoomScene extends Sprite implements Scene
 					];
 		bed = new BackgroundItem(bedPoints, true);
 		var bedDialog = showItemDialog.bind(_, "That's the bed");
-		this.addChild(bed);
-		
+		var bedName = showItemName.bind(_, "Bed");
+		bed.addEventListener(MouseEvent.MOUSE_OVER, bedName);
+		bed.addEventListener(MouseEvent.MOUSE_OUT, hideItemName);
 		bed.addEventListener(MouseEvent.CLICK, bedDialog);
+		this.addChild(bed);
 		
 	}
 
@@ -91,6 +93,17 @@ class RoomScene extends Sprite implements Scene
 	{
 		_hud.hideDialogBox();
 		_hud.showDialogBox(dialogText);
+	}
+	
+	private function showItemName(e:Dynamic, itemNameText:String)
+	{
+		_hud.hideItemNameBox();
+		_hud.showItemNameBox(itemNameText);
+	}
+	
+	private function hideItemName(e:Dynamic)
+	{
+		_hud.hideItemNameBox();
 	}
 
 }

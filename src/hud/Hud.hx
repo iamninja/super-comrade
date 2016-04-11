@@ -10,6 +10,7 @@ import openfl.events.MouseEvent;
 class Hud extends Sprite
 {
 	public var dialogBox:DialogBox;
+	public var itemNameBox:ItemName;
 	
 	public function new() 
 	{
@@ -35,4 +36,14 @@ class Hud extends Sprite
 		hideDialogBox();
 	}
 	
+	public function showItemNameBox(itemName:String)
+	{
+		itemNameBox = new ItemName(itemName);
+		addChild(itemNameBox);
+	}
+	
+	public function hideItemNameBox()
+	{
+		if (itemNameBox != null) removeChild(itemNameBox);
+	}
 }

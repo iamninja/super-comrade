@@ -19,20 +19,20 @@ class DialogBox extends Sprite
 	{
 		super();
 		
-		// Design the box
+		// Design the dialog box
 		this.graphics.beginFill(0x342929, 0.8);
 		this.graphics.drawRect(0, 450, 800, 150);
 		this.graphics.endFill();
 		this.buttonMode = false;
 		
-		// Portrait
+		// Portrait on dialog
 		var portraitData = Assets.getBitmapData(portraitPath);
 		var portraitBitmap = new Bitmap(portraitData);
 		portraitBitmap.x = 5;
 		portraitBitmap.y = 455;
 		addChild(portraitBitmap);
 		
-		// Text
+		// Text dialog
 		var textFormat:TextFormat = new TextFormat("_sans", 20, 0xbbbbbb, true);
 		textFormat.align = TextFormatAlign.LEFT;
 		textField = new TextField();
