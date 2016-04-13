@@ -1,12 +1,14 @@
 package scenes;
 
 import backgrounds.Background;
+import helpers.Tracker;
 import hud.Hud;
 import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.events.MouseEvent;
 import openfl.Lib;
 import scenary.BackgroundItem;
+import scenary.PickupItem;
 import scenes.Scene;
 /**
  * ...
@@ -16,8 +18,10 @@ class RoomScene extends Sprite implements Scene
 {
 	private var background:Background;
 	public var bed:BackgroundItem;
+	public var lemons:PickupItem;
 	public var _isActive:Bool;
 	public static var _hud:Hud;
+	public var tracker:Tracker;
 	var inited:Bool;
 	
 	// Entry Point
@@ -56,10 +60,20 @@ class RoomScene extends Sprite implements Scene
 		bed.addEventListener(MouseEvent.CLICK, bedDialog);
 		this.addChild(bed);
 		
+		if (tracker.lemonsPicked() == 0) 
+		{
+			trace("lemons not picked");
+			lemons = new PickupItem(375, 320, "img/items/lemons.png");
+			var pickupLemons = pickupItem.bind(_, lemons);
+			lemons.addEventListener(MouseEvent.CLICK, pickupLemons);
+			addChild(lemons);
+		}
+		
 	}
 
-	public function new(hud:Hud)
+	public function new(hud:Hud, _tracker:Tracker)
 	{
+		tracker = _tracker;
 		_hud = hud;
 		super();
 		addEventListener(Event.ADDED_TO_STAGE, added);
@@ -76,13 +90,13 @@ class RoomScene extends Sprite implements Scene
 		init();
 	}
 	
-	public static function main()
-	{
-		// static entry point
-		Lib.current.stage.align = openfl.display.StageAlign.TOP_LEFT;
-		Lib.current.stage.scaleMode = openfl.display.StageScaleMode.NO_SCALE;
-		Lib.current.addChild(new RoomScene(_hud));
-	}
+	//public static function main()
+	//{
+	//	// static entry point
+	//	Lib.current.stage.align = openfl.display.StageAlign.TOP_LEFT;
+	//	Lib.current.stage.scaleMode = openfl.display.StageScaleMode.NO_SCALE;
+	//	Lib.current.addChild(new RoomScene(_hud, tracker));
+	//}
 	
 	private function startGame()
 	{
@@ -104,6 +118,14 @@ class RoomScene extends Sprite implements Scene
 	private function hideItemName(e:Dynamic)
 	{
 		_hud.hideItemNameBox();
+	}
+	
+	private function pickupItem(e:Dynamic, item:Sprite)
+	{
+		trace(e.currentTarget);
+		tracker.lemonsPicked(1);
+		removeChild(e.currentTarget);
+		trace(tracker.lemonsPicked);
 	}
 
 }
