@@ -18,6 +18,9 @@ class RoomScene extends Sprite implements Scene
 {
 	private var background:Background;
 	public var bed:BackgroundItem;
+    public var drawers:BackgroundItem;
+    public var window:BackgroundItem;
+    public var books:BackgroundItem;
 	public var lemons:PickupItem;
 	public var _isActive:Bool;
 	public static var hud:Hud;
@@ -52,22 +55,74 @@ class RoomScene extends Sprite implements Scene
 						[227, 600],
 						[0, 600]
 					];
-		bed = new BackgroundItem(bedPoints, true);
-		var bedDialog = showItemDialog.bind(_, "That's the bed");
+		bed = new BackgroundItem(bedPoints, false);
+		var bedDialog = showItemDialog.bind(_, "That's the bed.");
 		var bedName = showItemName.bind(_, "Bed");
 		bed.addEventListener(MouseEvent.MOUSE_OVER, bedName);
 		bed.addEventListener(MouseEvent.MOUSE_OUT, hideItemName);
 		bed.addEventListener(MouseEvent.CLICK, bedDialog);
 		this.addChild(bed);
 
-		if (tracker.lemonsPicked() == 0)
-		{
-			trace("lemons not picked");
-			lemons = new PickupItem(375, 320, "img/items/lemons.png");
-			var pickupLemons = pickupItem.bind(_, lemons);
-			lemons.addEventListener(MouseEvent.CLICK, pickupLemons);
-			addChild(lemons);
-		}
+        // Drawers in background
+        var drawersPoints = [
+                        [251, 503],
+                        [251, 348],
+                        [429, 348],
+                        [448, 370],
+                        [448, 503],
+                        [251, 503]
+                    ];
+        drawers = new BackgroundItem(drawersPoints, false);
+        var drawersDialog = showItemDialog.bind(_, "Nothing in here.");
+        var drawersName = showItemName.bind(_, "Drawers");
+        drawers.addEventListener(MouseEvent.MOUSE_OVER, drawersName);
+        drawers.addEventListener(MouseEvent.MOUSE_OUT, hideItemName);
+        drawers.addEventListener(MouseEvent.CLICK, drawersDialog);
+        this.addChild(drawers);
+
+        // Window in background
+        var windowPoints = [
+                        [0, 171],
+                        [0, 41],
+                        [60, 75],
+                        [60, 170],
+                        [0, 171]
+                    ];
+        window = new BackgroundItem(windowPoints, false);
+        var windowDialog = showItemDialog.bind(_, "Can't see anything. This window is too high.");
+        var windowName = showItemName.bind(_, "Window");
+        window.addEventListener(MouseEvent.MOUSE_OVER, windowName);
+        window.addEventListener(MouseEvent.MOUSE_OUT, hideItemName);
+        window.addEventListener(MouseEvent.CLICK, windowDialog);
+        this.addChild(window);
+
+        // Books in background
+        var booksPoints = [
+                        [473, 491],
+                        [473, 158],
+                        [697, 158],
+                        [697, 200],
+                        [630, 200],
+                        [569, 500],
+                        [483, 500],
+                        [473, 491]
+                    ];
+        books = new BackgroundItem(booksPoints, false);
+        var booksDialog = showItemDialog.bind(_, "My famous book collection.");
+        var booksName = showItemName.bind(_, "Books");
+        books.addEventListener(MouseEvent.MOUSE_OVER, booksName);
+        books.addEventListener(MouseEvent.MOUSE_OUT, hideItemName);
+        books.addEventListener(MouseEvent.CLICK, booksDialog);
+        this.addChild(books);
+
+        if (tracker.lemonsPicked() == 0)
+        {
+            trace("lemons not picked");
+            lemons = new PickupItem(375, 320, "img/items/lemons.png");
+            var pickupLemons = pickupItem.bind(_, lemons);
+            lemons.addEventListener(MouseEvent.CLICK, pickupLemons);
+            addChild(lemons);
+        }
 
 	}
 
