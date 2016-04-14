@@ -12,6 +12,7 @@ import openfl.text.TextFormatAlign;
 class StartButton extends Sprite
 {
 	private var messageField:TextField;
+
 	public function new()
 	{
 		super();
@@ -21,7 +22,7 @@ class StartButton extends Sprite
 		this.graphics.drawRect(400-(180/2), 400, width, height);
 		this.graphics.endFill();
 		this.buttonMode = true;
-		
+
 		var messageFormat:TextFormat = new TextFormat("_sans", 28, 0x000000, true);
 		messageFormat.align = TextFormatAlign.CENTER;
 		messageField = new TextField();
@@ -33,5 +34,4 @@ class StartButton extends Sprite
 		messageField.selectable = false;
 		messageField.text = "Start";
 	}
-	
 }

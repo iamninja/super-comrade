@@ -1,0 +1,22 @@
+{
+	"folders":
+	[
+		{
+			"path": "."
+		}
+	],
+  "settings":
+  {
+    "tab-size": 4,
+    "translate-tabs-to-spaces": false,
+    "trim_trailing_white_space_on_save": true,
+    "default_line_ending": "LF"
+  },
+  "build_systems":
+  [
+    {
+      "name": "Neko Test (Lime)",
+      "cmd": ["lime", "test", "neko"]
+    }
+  ]
+}

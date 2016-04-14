@@ -8,24 +8,24 @@ import scenes.RoomScene;
 
 /**
  * ...
- * @author 
+ * @author
  */
 class SceneManager extends Sprite
 {
 	public var roomScene:RoomScene;
 	public var hud:Hud;
 	public static var tracker:Tracker;
-	
-	public function new() 
+
+	public function new()
 	{
 		super();
-		
+
 		tracker = new Tracker();
-		
+
 		hud = new Hud();
 		roomScene = new RoomScene(hud, tracker);
 		addChild(roomScene);
 		addChild(hud);
 	}
-	
+
 }

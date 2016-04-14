@@ -9,14 +9,15 @@ import openfl.text.TextFormatAlign;
 
 /**
  * ...
- * @author 
+ * @author
  */
 class PickupItem extends Sprite
 {
 
 	private var _showTitle:Bool;
 	private var messageField:TextField;
-	public function new(x:Int, y:Int, pathToImage:String) 
+
+	public function new(x:Int, y:Int, pathToImage:String)
 	{
 		super();
 		var bitmapData = Assets.getBitmapData (pathToImage);
@@ -25,10 +26,7 @@ class PickupItem extends Sprite
 		itemBitmap.y = y;
 		addChild(itemBitmap);
 		trace("lemons added");
-		
+
 		this.buttonMode = true;
 	}
-	
-	
-	
 }

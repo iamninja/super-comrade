@@ -7,16 +7,16 @@ import openfl.text.TextFormatAlign;
 
 /**
  * ...
- * @author 
+ * @author
  */
 class ItemName extends Sprite
 {
 	private var textField:TextField;
-	
-	public function new(itemName:String) 
+
+	public function new(itemName:String)
 	{
 		super();
-		
+
 		// Text dialog
 		var textFormat:TextFormat = new TextFormat("_sans", 20, 0x000000, true);
 		textFormat.align = TextFormatAlign.LEFT;
@@ -29,5 +29,5 @@ class ItemName extends Sprite
 		textField.text = itemName;
 		addChild(textField);
 	}
-	
+
 }

@@ -4,9 +4,9 @@ import backgrounds.Background;
 import hud.Hud;
 
 /**
- * @author 
+ * @author
  */
-interface Scene 
+interface Scene
 {
 	private var background:Background;
 	public var _isActive:Bool;

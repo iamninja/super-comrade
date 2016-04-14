@@ -23,24 +23,24 @@ class RoomScene extends Sprite implements Scene
 	public static var _hud:Hud;
 	public var tracker:Tracker;
 	var inited:Bool;
-	
+
 	// Entry Point
-	
+
 	function resize(e)
 	{
 		if (!inited) init();
 		// else (resize or orientation change)
 	}
-	
+
 	function init()
 	{
 		if (inited) return;
 		inited = true;
-		
+
 		// Background
 		background = new Background("img/backgrounds/roomComradeD.jpg");
 		this.addChild(background);
-		
+
 		// Bed in background
 		var bedPoints = [
 						[0, 600],
@@ -59,8 +59,8 @@ class RoomScene extends Sprite implements Scene
 		bed.addEventListener(MouseEvent.MOUSE_OUT, hideItemName);
 		bed.addEventListener(MouseEvent.CLICK, bedDialog);
 		this.addChild(bed);
-		
-		if (tracker.lemonsPicked() == 0) 
+
+		if (tracker.lemonsPicked() == 0)
 		{
 			trace("lemons not picked");
 			lemons = new PickupItem(375, 320, "img/items/lemons.png");
@@ -68,7 +68,7 @@ class RoomScene extends Sprite implements Scene
 			lemons.addEventListener(MouseEvent.CLICK, pickupLemons);
 			addChild(lemons);
 		}
-		
+
 	}
 
 	public function new(hud:Hud, _tracker:Tracker)
@@ -77,19 +77,19 @@ class RoomScene extends Sprite implements Scene
 		_hud = hud;
 		super();
 		addEventListener(Event.ADDED_TO_STAGE, added);
-		
+
 		// Assets:
 		// openfl.Assets.getBitmapData("img/assetname.jpg");
 	}
-	
+
 	function added(e)
 	{
 		removeEventListener(Event.ADDED_TO_STAGE, added);
 		stage.addEventListener(Event.RESIZE, resize);
-		
+
 		init();
 	}
-	
+
 	//public static function main()
 	//{
 	//	// static entry point
@@ -97,29 +97,29 @@ class RoomScene extends Sprite implements Scene
 	//	Lib.current.stage.scaleMode = openfl.display.StageScaleMode.NO_SCALE;
 	//	Lib.current.addChild(new RoomScene(_hud, tracker));
 	//}
-	
+
 	private function startGame()
 	{
 		trace("Start!!");
 	}
-	
+
 	private function showItemDialog(e:Dynamic, dialogText:String)
 	{
 		_hud.hideDialogBox();
 		_hud.showDialogBox(dialogText);
 	}
-	
+
 	private function showItemName(e:Dynamic, itemNameText:String)
 	{
 		_hud.hideItemNameBox();
 		_hud.showItemNameBox(itemNameText);
 	}
-	
+
 	private function hideItemName(e:Dynamic)
 	{
 		_hud.hideItemNameBox();
 	}
-	
+
 	private function pickupItem(e:Dynamic, item:Sprite)
 	{
 		trace(e.currentTarget);
