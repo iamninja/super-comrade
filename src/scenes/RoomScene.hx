@@ -20,7 +20,7 @@ class RoomScene extends Sprite implements Scene
 	public var bed:BackgroundItem;
 	public var lemons:PickupItem;
 	public var _isActive:Bool;
-	public static var _hud:Hud;
+	public static var hud:Hud;
 	public var tracker:Tracker;
 	var inited:Bool;
 
@@ -71,10 +71,10 @@ class RoomScene extends Sprite implements Scene
 
 	}
 
-	public function new(hud:Hud, _tracker:Tracker)
+	public function new(_hud:Hud, _tracker:Tracker)
 	{
 		tracker = _tracker;
-		_hud = hud;
+		hud = _hud;
 		super();
 		addEventListener(Event.ADDED_TO_STAGE, added);
 
@@ -105,19 +105,19 @@ class RoomScene extends Sprite implements Scene
 
 	private function showItemDialog(e:Dynamic, dialogText:String)
 	{
-		_hud.hideDialogBox();
-		_hud.showDialogBox(dialogText);
+		hud.hideDialogBox();
+		hud.showDialogBox(dialogText);
 	}
 
 	private function showItemName(e:Dynamic, itemNameText:String)
 	{
-		_hud.hideItemNameBox();
-		_hud.showItemNameBox(itemNameText);
+		hud.hideItemNameBox();
+		hud.showItemNameBox(itemNameText);
 	}
 
 	private function hideItemName(e:Dynamic)
 	{
-		_hud.hideItemNameBox();
+		hud.hideItemNameBox();
 	}
 
 	private function pickupItem(e:Dynamic, item:Sprite)
@@ -126,6 +126,7 @@ class RoomScene extends Sprite implements Scene
 		tracker.lemonsPicked(1);
 		removeChild(e.currentTarget);
 		trace(tracker.lemonsPicked);
+        hud.reloadInventory(tracker);
 	}
 
 }

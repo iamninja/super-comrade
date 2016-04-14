@@ -22,7 +22,7 @@ class SceneManager extends Sprite
 
 		tracker = new Tracker();
 
-		hud = new Hud();
+		hud = new Hud(tracker);
 		roomScene = new RoomScene(hud, tracker);
 		addChild(roomScene);
 		addChild(hud);
