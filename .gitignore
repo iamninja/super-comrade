@@ -3,3 +3,7 @@ comrade.sublime-workspace
 
 # bin
 bin/
+
+# .hxml files for HaXe completion
+build.hxml
+vscode-project.hxml
