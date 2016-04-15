@@ -22,6 +22,7 @@ class ItemName extends Sprite
 		textFormat.align = TextFormatAlign.LEFT;
 		textField = new TextField();
 		textField.width = 100;
+        textField.height = 30;
 		textField.y = 10;
 		textField.x = 5;
 		textField.defaultTextFormat = textFormat;
