@@ -23,18 +23,18 @@ class Tracker
         ];
 	}
 
-	public function lemonsPicked(_picked:Int = 0):Int
+	public function itemPicked(item:String, _picked:Int = 0):Int
 	{
 		//if (tracker.lemonsPicked != 0) trace("picked") else trace("not picked");
 		if (_picked == 0)
 		{
-			return picked["lemons"];
+			return picked[item];
 		}
 		else
 		{
-			picked["lemons"] = 1;
-            inInventory["lemons"] = 1;
-			return picked["lemons"];
+			picked[item] = 1;
+            inInventory[item] = 1;
+			return picked[item];
 		}
 
 	}

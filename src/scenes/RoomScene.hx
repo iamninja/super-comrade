@@ -18,12 +18,16 @@ import scenes.Scene;
  */
 class RoomScene extends Sprite implements Scene
 {
+    // Declare background items
 	private var background:Background;
 	public var bed:BackgroundItem;
     public var drawers:BackgroundItem;
     public var window:BackgroundItem;
     public var books:BackgroundItem;
+    // Declare pickup items
 	public var lemons:PickupItem;
+    public var lemonade:PickupItem;
+
 	public var _isActive:Bool;
 	public static var hud:Hud;
 	public var tracker:Tracker;
@@ -47,6 +51,7 @@ class RoomScene extends Sprite implements Scene
 		background = new Background("img/backgrounds/roomComradeD.jpg");
 		this.addChild(background);
 
+        // Add background items
 		// Bed in background
 		var bedPoints = [
 						[0, 600],
@@ -118,13 +123,25 @@ class RoomScene extends Sprite implements Scene
         books.addEventListener(MouseEvent.CLICK, booksDialog);
         this.addChild(books);
 
-        if (tracker.lemonsPicked() == 0)
+        // Add pickup items
+        // Check if lemons have picked
+        if (tracker.itemPicked("lemons") == 0)
         {
             trace("lemons not picked");
-            lemons = new PickupItem(375, 320, "img/items/lemons.png");
+            lemons = new PickupItem(375, 320, "img/items/lemons.png", "lemons");
             var pickupLemons = pickupItem.bind(_, lemons, "These lemos must be good for my health. Better keep them with me.");
             lemons.addEventListener(MouseEvent.CLICK, pickupLemons);
             addChild(lemons);
+        }
+
+        // Check if lemonade has picked
+        if (tracker.itemPicked("lemonade") == 0)
+        {
+            trace("lemonade not picked");
+            lemonade = new PickupItem(290, 357, "img/items/lemonade.png", "lemonade");
+            var pickupLemonade = pickupItem.bind(_, lemonade, "Looks refreshing! Better pick it up.");
+            lemonade.addEventListener(MouseEvent.CLICK, pickupLemonade);
+            addChild(lemonade);
         }
 	}
 
@@ -180,11 +197,10 @@ class RoomScene extends Sprite implements Scene
 
 	private function pickupItem(e:Dynamic, item:Sprite, itemDialog:String)
 	{
-		trace(e.currentTarget);
-		tracker.lemonsPicked(1);
+		trace(e.currentTarget.itemName);
+		tracker.itemPicked(e.currentTarget.itemName, 1);
 		removeChild(e.currentTarget);
-		trace(tracker.lemonsPicked);
-        showItemDialog(e, itemDialog);
+        // showItemDialog(e, itemDialog);
         inventory.reloadInventory(tracker);
 	}
 
