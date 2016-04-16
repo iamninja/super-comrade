@@ -3,6 +3,7 @@ package scenes;
 import backgrounds.Background;
 import helpers.Tracker;
 import hud.Hud;
+import inventory.Inventory;
 import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.events.MouseEvent;
@@ -10,6 +11,7 @@ import openfl.Lib;
 import scenary.BackgroundItem;
 import scenary.PickupItem;
 import scenes.Scene;
+
 /**
  * ...
  * @author
@@ -25,6 +27,7 @@ class RoomScene extends Sprite implements Scene
 	public var _isActive:Bool;
 	public static var hud:Hud;
 	public var tracker:Tracker;
+    public var inventory:Inventory;
 	var inited:Bool;
 
 	// Entry Point
@@ -119,17 +122,17 @@ class RoomScene extends Sprite implements Scene
         {
             trace("lemons not picked");
             lemons = new PickupItem(375, 320, "img/items/lemons.png");
-            var pickupLemons = pickupItem.bind(_, lemons);
+            var pickupLemons = pickupItem.bind(_, lemons, "These lemos must be good for my health. Better keep them with me.");
             lemons.addEventListener(MouseEvent.CLICK, pickupLemons);
             addChild(lemons);
         }
-
 	}
 
-	public function new(_hud:Hud, _tracker:Tracker)
+	public function new(_hud:Hud, _inventory:Inventory, _tracker:Tracker)
 	{
 		tracker = _tracker;
 		hud = _hud;
+        inventory = _inventory;
 		super();
 		addEventListener(Event.ADDED_TO_STAGE, added);
 
@@ -175,13 +178,19 @@ class RoomScene extends Sprite implements Scene
 		hud.hideItemNameBox();
 	}
 
-	private function pickupItem(e:Dynamic, item:Sprite)
+	private function pickupItem(e:Dynamic, item:Sprite, itemDialog:String)
 	{
 		trace(e.currentTarget);
 		tracker.lemonsPicked(1);
 		removeChild(e.currentTarget);
 		trace(tracker.lemonsPicked);
-        hud.reloadInventory(tracker);
+        showItemDialog(e, itemDialog);
+        inventory.reloadInventory(tracker);
 	}
+
+    private function showInventoryDialog(e:Dynamic)
+    {
+        trace(Type.getClassName(Type.getClass(e.currentTarget)));
+    }
 
 }

@@ -25,7 +25,6 @@ class PickupItem extends Sprite
 		itemBitmap.x = x;
 		itemBitmap.y = y;
 		addChild(itemBitmap);
-		trace("lemons added");
 
 		this.buttonMode = true;
 	}

@@ -7,27 +7,46 @@ package helpers;
 class Tracker
 {
 	public static var tracker;
+    public static var picked;
+    public static var inInventory;
 
 	public function new()
 	{
-		tracker = {
-			lemonsPicked : 0,
-		};
+		picked = [
+            "lemons" => 0,
+            "lemonade" => 0,
+        ];
+
+        inInventory = [
+            "lemons" => 0,
+            "lemonade" => 0,
+        ];
 	}
 
-	public function lemonsPicked(picked:Int = 0):Int
+	public function lemonsPicked(_picked:Int = 0):Int
 	{
 		//if (tracker.lemonsPicked != 0) trace("picked") else trace("not picked");
-		if (picked == 0)
+		if (_picked == 0)
 		{
-			return tracker.lemonsPicked;
+			return picked["lemons"];
 		}
 		else
 		{
-			tracker.lemonsPicked = 1;
-			return tracker.lemonsPicked;
+			picked["lemons"] = 1;
+            inInventory["lemons"] = 1;
+			return picked["lemons"];
 		}
 
 	}
+
+    public function itemsInInventory():Int
+    {
+        var numberOfItems = 0;
+        for (item in inInventory)
+        {
+            if (item == 1) numberOfItems++;
+        }
+        return numberOfItems;
+    }
 
 }

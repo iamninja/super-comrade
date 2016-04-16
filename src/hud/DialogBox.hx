@@ -36,6 +36,7 @@ class DialogBox extends Sprite
 		var textFormat:TextFormat = new TextFormat("_sans", 20, 0xbbbbbb, true);
 		textFormat.align = TextFormatAlign.LEFT;
 		textField = new TextField();
+        textField.wordWrap = true;
 		textField.width = 640;
 		textField.y = 455;
 		textField.x = 155;
