@@ -10,6 +10,7 @@ import helpers.Tracker;
 import inventory.InventoryBox;
 import hud.Hud;
 import openfl.events.MouseEvent;
+import inventory.ActiveItem;
 
 class Inventory extends Sprite
 {
@@ -17,7 +18,8 @@ class Inventory extends Sprite
     public var lemons:InventoryBox;
     public var lemonade:InventoryBox;
 
-    public var itemsShown:Array<InventoryBox>;
+    public var activeItem:ActiveItem;
+    public var activeItemName:String;
     public var tracker:Tracker;
     public var hud:Hud;
 
@@ -25,7 +27,6 @@ class Inventory extends Sprite
     {
         super();
 
-        itemsShown = new Array<InventoryBox>();
         hud = _hud;
         tracker = _tracker;
         reloadInventory(tracker);
@@ -33,32 +34,28 @@ class Inventory extends Sprite
 
     public function reloadInventory(_tracker:Tracker):Void
     {
-        var numberOfItems = tracker.itemsInInventory();
-        for (item in itemsShown)
+        var numberOfItems = _tracker.itemsInInventory();
+        this.activeItemName = "";
+        this.removeChildren();
+        this.activeItem = null;
+        if (_tracker.inInventory["lemons"] == 1)
         {
-            removeChild(item);
-        }
-        itemsShown = [];
-        if (_tracker.itemPicked("lemons") == 1)
-        {
-            lemons = new InventoryBox(800 - (60*numberOfItems) - (5*numberOfItems), 10, "img/items_inv/lemons.png", "My lemons.");
-            var lemonsInventoryDialog = showInventoryDialog.bind(_, lemons.dialog);
+            lemons = new InventoryBox(800 - (60*numberOfItems) - (5*numberOfItems), 10, "img/items_inv/lemons.png", "My lemons.", "lemons");
+            var lemonsInventoryDialog = itemInInventoryClicked.bind(_, lemons.dialog);
             lemons.addEventListener(MouseEvent.CLICK, lemonsInventoryDialog);
             addChild(lemons);
 
             numberOfItems--;
-            itemsShown.push(lemons);
         }
 
-        if (_tracker.itemPicked("lemonade") == 1)
+        if (_tracker.inInventory["lemonade"] == 1)
         {
-            lemonade = new InventoryBox(800 - (60*numberOfItems) - (5*numberOfItems), 10, "img/items_inv/lemonade.png", "My delicious lemonade.");
-            var lemonadeInventoryDialog = showInventoryDialog.bind(_, lemonade.dialog);
+            lemonade = new InventoryBox(800 - (60*numberOfItems) - (5*numberOfItems), 10, "img/items_inv/lemonade.png", "My delicious lemonade.", "lemonade");
+            var lemonadeInventoryDialog = itemInInventoryClicked.bind(_, lemonade.dialog);
             lemonade.addEventListener(MouseEvent.CLICK, lemonadeInventoryDialog);
             addChild(lemonade);
 
             numberOfItems--;
-            itemsShown.push(lemonade);
         }
     }
 
@@ -69,9 +66,25 @@ class Inventory extends Sprite
     //     addChild(inventory);
     // }
 
-    public function showInventoryDialog(e:Dynamic, dialog:String)
+    public function itemInInventoryClicked(e:Dynamic, dialog:String)
     {
         hud.hideDialogBox();
-        hud.showDialogBox(dialog);
+        hud.showDialogBox(dialog + " (" + e.currentTarget.xi + ", " + e.currentTarget.yi + ")");
+        activeItemName = e.currentTarget.itemName;
+        if (activeItem == null)
+        {
+            // trace("add active");
+            // removeChild(activeItem);
+            activeItem = new ActiveItem(e.currentTarget.xi, e.currentTarget.yi, e.currentTarget.itemName);
+            addChild(activeItem);
+        }
+        else if (!(this.activeItemName == this.activeItem.itemName))
+        {
+            // trace("add active2");
+            removeChild(activeItem);
+            activeItem = new ActiveItem(e.currentTarget.xi, e.currentTarget.yi, e.currentTarget.itemName);
+            addChild(activeItem);
+        }
+
     }
 }

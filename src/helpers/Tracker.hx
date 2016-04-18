@@ -8,7 +8,7 @@ class Tracker
 {
 	public static var tracker;
     public static var picked;
-    public static var inInventory;
+    public var inInventory:Map<String, Int>;
 
 	public function new()
 	{
