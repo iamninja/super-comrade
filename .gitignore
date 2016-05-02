@@ -7,3 +7,8 @@ bin/
 # .hxml files for HaXe completion
 build.hxml
 vscode-project.hxml
+project.xml.hxml
+*.hxml
+
+# Vim files
+*.swp 

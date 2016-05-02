@@ -16,10 +16,9 @@ import scenes.Scene;
  * ...
  * @author
  */
-class RoomScene extends Sprite implements Scene
+class RoomScene extends Scene
 {
     // Declare background items
-	private var background:Background;
 	public var bed:BackgroundItem;
     public var drawers:BackgroundItem;
     public var window:BackgroundItem;
@@ -28,10 +27,7 @@ class RoomScene extends Sprite implements Scene
 	public var lemons:PickupItem;
     public var lemonade:PickupItem;
 
-	public var _isActive:Bool;
-	public static var hud:Hud;
-	public var tracker:Tracker;
-    public var inventory:Inventory;
+	//var alias = "room";
 	var inited:Bool;
 
 	// Entry Point
@@ -48,8 +44,8 @@ class RoomScene extends Sprite implements Scene
 		inited = true;
 
 		// Background
-		background = new Background("img/backgrounds/roomComradeD.jpg");
-		this.addChild(background);
+		_background = new Background("img/backgrounds/roomComradeD.jpg");
+		this.addChild(_background);
 
         // Add background items
 		// Bed in background

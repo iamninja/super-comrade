@@ -2,7 +2,6 @@ package hud;
 
 import openfl.display.Sprite;
 import openfl.events.MouseEvent;
-import helpers.Tracker;
 
 /**
  * ...
@@ -12,13 +11,11 @@ class Hud extends Sprite
 {
 	public var dialogBox:DialogBox;
 	public var itemNameBox:ItemName;
-    public var tracker:Tracker;
 
-	public function new(_tracker:Tracker)
+	public function new()
 	{
 		super();
 
-        tracker = _tracker;
 	}
 
 	public function showDialogBox(dialogText:String, portraitPath:String = "img/portraits/herop.png")
