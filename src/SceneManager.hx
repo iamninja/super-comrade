@@ -9,7 +9,7 @@ import scenes.*;
 import scenes.Scene;
 import scenary.Exit;
 import openfl.events.MouseEvent;
-
+import openfl.ui.Mouse;
 
 /**
  * ...
@@ -18,8 +18,10 @@ import openfl.events.MouseEvent;
 class SceneManager extends Sprite
 {
     public var exitRoomToMap:Exit;
+    public var exitMapToRoom:Exit;
 
     public var roomExits:Array<Exit>;
+    public var mapExits:Array<Exit>;
 
 	public var roomScene:RoomScene;
     public var mapScene:MapScene;
@@ -38,16 +40,29 @@ class SceneManager extends Sprite
         inventory = new Inventory(tracker, hud);
 
 		roomScene = new RoomScene(hud, inventory, tracker);
-
+        // Define and create all exits
         var pointsRoomToMap = [
             [720, 80],
             [800, 80],
-            [800, 600],
-            [720, 600],
+            [800, 440],
+            [720, 440],
             [720, 80]
         ];
         exitRoomToMap = new Exit("room", "map", pointsRoomToMap);
         roomExits = [exitRoomToMap];
+        var pointsMapToRoom = [
+            [210, 133],
+            [276, 214],
+            [276, 173],
+            [378, 138],
+            [403, 163],
+            [397, 203],
+            [433, 217],
+            [284, 266]
+        ];
+        exitMapToRoom = new Exit("map", "room", pointsMapToRoom);
+        mapExits = [exitMapToRoom];
+
 
 		addChild(roomScene);
 		addChild(hud);
@@ -58,13 +73,14 @@ class SceneManager extends Sprite
 
     public function loadScene(newSceneAlias:String)
     {
+        hud.hideDialogBox();
         inventory = currentScene.getInventory();
         removeChildren();
         currentScene = sceneFromAlias(newSceneAlias, hud, inventory, tracker);
         addChild(currentScene);
         addChild(hud);
-        addChild(inventory);
-
+        if (newSceneAlias != "map") addChild(inventory);
+        addExits(exitsFromAlias(newSceneAlias));
     }
 
     public function addExits(exits:Array<Exit>)
@@ -73,6 +89,8 @@ class SceneManager extends Sprite
         {
             addChild(exit);
             exit.addEventListener(MouseEvent.CLICK, clickOnExit);
+            exit.addEventListener(MouseEvent.MOUSE_OVER, mouseOnExit);
+            exit.addEventListener(MouseEvent.MOUSE_OUT, mouseOutOfExit);
 
         }
     }
@@ -94,4 +112,23 @@ class SceneManager extends Sprite
             default     : return null;
         }
     }
+    private function exitsFromAlias(alias:String):Array<Exit>
+    {
+        switch (alias) {
+            case "room" : return roomExits;
+            case "map"  : return mapExits;
+            default     : return null;
+        }
+    }
+
+    private function mouseOnExit(e:Dynamic)
+    {
+        trace("mouse over exit");
+    }
+
+    private function mouseOutOfExit(e:Dynamic)
+    {
+        trace("mouse out of exit");
+    }
+   
 }
