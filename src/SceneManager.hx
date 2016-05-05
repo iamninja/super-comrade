@@ -48,7 +48,7 @@ class SceneManager extends Sprite
             [720, 440],
             [720, 80]
         ];
-        exitRoomToMap = new Exit("room", "map", pointsRoomToMap);
+        exitRoomToMap = new Exit("room", "map", pointsRoomToMap, "right", [733, 262], "To Map");
         roomExits = [exitRoomToMap];
         var pointsMapToRoom = [
             [210, 133],
@@ -60,7 +60,7 @@ class SceneManager extends Sprite
             [433, 217],
             [284, 266]
         ];
-        exitMapToRoom = new Exit("map", "room", pointsMapToRoom);
+        exitMapToRoom = new Exit("map", "room", pointsMapToRoom, "down", [336, 135], "To Home");
         mapExits = [exitMapToRoom];
 
 
@@ -74,6 +74,7 @@ class SceneManager extends Sprite
     public function loadScene(newSceneAlias:String)
     {
         hud.hideDialogBox();
+        hud.hideItemNameBox();
         inventory = currentScene.getInventory();
         removeChildren();
         currentScene = sceneFromAlias(newSceneAlias, hud, inventory, tracker);
@@ -124,11 +125,15 @@ class SceneManager extends Sprite
     private function mouseOnExit(e:Dynamic)
     {
         trace("mouse over exit");
+        // trace(e.currentTarget.exitName);
+        hud.hideItemNameBox();
+        hud.showItemNameBox(e.currentTarget.exitName);
     }
 
     private function mouseOutOfExit(e:Dynamic)
     {
         trace("mouse out of exit");
+        hud.hideItemNameBox();
     }
    
 }
