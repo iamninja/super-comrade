@@ -59,12 +59,7 @@ class RoomScene extends Scene
 						[227, 600],
 						[0, 600]
 					];
-		bed = new BackgroundItem(bedPoints, false);
-		var bedDialog = showItemDialog.bind(_, "That's the bed.");
-		var bedName = showItemName.bind(_, "Bed");
-		bed.addEventListener(MouseEvent.MOUSE_OVER, bedName);
-		bed.addEventListener(MouseEvent.MOUSE_OUT, hideItemName);
-		bed.addEventListener(MouseEvent.CLICK, bedDialog);
+		bed = new BackgroundItem(bedPoints, hud, "Bed", "That's the bed.");
 		this.addChild(bed);
 
         // Drawers in background
@@ -76,12 +71,7 @@ class RoomScene extends Scene
                         [448, 503],
                         [251, 503]
                     ];
-        drawers = new BackgroundItem(drawersPoints, false);
-        var drawersDialog = showItemDialog.bind(_, "Nothing in here.");
-        var drawersName = showItemName.bind(_, "Drawers");
-        drawers.addEventListener(MouseEvent.MOUSE_OVER, drawersName);
-        drawers.addEventListener(MouseEvent.MOUSE_OUT, hideItemName);
-        drawers.addEventListener(MouseEvent.CLICK, drawersDialog);
+        drawers = new BackgroundItem(drawersPoints, hud, "Drawers", "Nothing in here.");
         this.addChild(drawers);
 
         // Window in background
@@ -92,12 +82,7 @@ class RoomScene extends Scene
                         [60, 170],
                         [0, 171]
                     ];
-        window = new BackgroundItem(windowPoints, false);
-        var windowDialog = showItemDialog.bind(_, "Can't see anything. This window is too high.");
-        var windowName = showItemName.bind(_, "Window");
-        window.addEventListener(MouseEvent.MOUSE_OVER, windowName);
-        window.addEventListener(MouseEvent.MOUSE_OUT, hideItemName);
-        window.addEventListener(MouseEvent.CLICK, windowDialog);
+        window = new BackgroundItem(windowPoints, hud, "Window", "Can't see anything. This window is too high.");
         this.addChild(window);
 
         // Books in background
@@ -111,12 +96,7 @@ class RoomScene extends Scene
                         [483, 500],
                         [473, 491]
                     ];
-        books = new BackgroundItem(booksPoints, false);
-        var booksDialog = showItemDialog.bind(_, "My famous book collection.");
-        var booksName = showItemName.bind(_, "Books");
-        books.addEventListener(MouseEvent.MOUSE_OVER, booksName);
-        books.addEventListener(MouseEvent.MOUSE_OUT, hideItemName);
-        books.addEventListener(MouseEvent.CLICK, booksDialog);
+        books = new BackgroundItem(booksPoints, hud, "Books", "My famous book collection.");
         this.addChild(books);
 
         // Add pickup items
@@ -196,7 +176,7 @@ class RoomScene extends Scene
 		trace(e.currentTarget.itemName);
 		tracker.itemPicked(e.currentTarget.itemName, 1);
 		removeChild(e.currentTarget);
-        // showItemDialog(e, itemDialog);
+        showItemDialog(e, itemDialog);
         inventory.reloadInventory(tracker);
 	}
 

@@ -6,6 +6,7 @@ import openfl.events.MouseEvent;
 import openfl.text.TextField;
 import openfl.text.TextFormat;
 import openfl.text.TextFormatAlign;
+import hud.Hud;
 
 /**
  * ...
@@ -16,8 +17,14 @@ class BackgroundItem extends Sprite
 
 	private var _showTitle:Bool;
 	private var messageField:TextField;
+    public var hud:Hud;
 
-	public function new(points:Array<Dynamic>, debug:Bool = false)
+	public function new(
+        points:Array<Dynamic>,
+        _hud:Hud,
+        itemNameString:String,
+        itemDialogString:String,
+        ?debug:Bool = false)
 	{
 		super();
 		var alpha:Float;
@@ -33,5 +40,30 @@ class BackgroundItem extends Sprite
 		this.graphics.endFill();
 
 		this.buttonMode = true;
+        
+        
+        hud = _hud;
+        var itemDialog = showItemDialog.bind(_, itemDialogString);
+        var itemName = showItemName.bind(_, itemNameString);
+        this.addEventListener(MouseEvent.MOUSE_OVER, itemName);
+        this.addEventListener(MouseEvent.MOUSE_OUT, hideItemName);
+        this.addEventListener(MouseEvent.CLICK, itemDialog);
+	}
+    
+    public function showItemDialog(e:Dynamic, dialogText:String)
+	{
+		hud.hideDialogBox();
+		hud.showDialogBox(dialogText);
+	}
+
+	public function showItemName(e:Dynamic, itemNameText:String)
+	{
+		hud.hideItemNameBox();
+		hud.showItemNameBox(itemNameText);
+	}
+    
+    public function hideItemName(e:Dynamic)
+	{
+		hud.hideItemNameBox();
 	}
 }
