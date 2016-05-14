@@ -104,7 +104,7 @@ class RoomScene extends Scene
         if (tracker.itemPicked("lemons") == 0)
         {
             trace("lemons not picked");
-            lemons = new PickupItem(375, 320, "img/items/lemons.png", "lemons");
+            lemons = new PickupItem(375, 320, hud, "img/items/lemons.png", "lemons", "Lemons");
             var pickupLemons = pickupItem.bind(_, lemons, "These lemos must be good for my health. Better keep them with me.");
             lemons.addEventListener(MouseEvent.CLICK, pickupLemons);
             addChild(lemons);
@@ -114,7 +114,7 @@ class RoomScene extends Scene
         if (tracker.itemPicked("lemonade") == 0)
         {
             trace("lemonade not picked");
-            lemonade = new PickupItem(290, 357, "img/items/lemonade.png", "lemonade");
+            lemonade = new PickupItem(290, 357, hud, "img/items/lemonade.png", "lemonade", "Lemonade");
             var pickupLemonade = pickupItem.bind(_, lemonade, "Looks refreshing! Better pick it up.");
             lemonade.addEventListener(MouseEvent.CLICK, pickupLemonade);
             addChild(lemonade);

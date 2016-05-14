@@ -7,6 +7,7 @@ import openfl.text.TextFormat;
 import openfl.text.TextFormatAlign;
 import openfl.display.Sprite;
 import openfl.events.MouseEvent;
+import hud.Hud;
 
 
 class InventoryBox extends Sprite
@@ -16,8 +17,16 @@ class InventoryBox extends Sprite
     public var xi:Float;
     public var yi:Float;
     public var itemName:String;
+    public var itemNameToShow:String;
+    public var hud:Hud;
 
-	public function new(_x:Int, _y:Int, pathToImage:String, _dialog:String, _itemName:String)
+	public function new(
+        _x:Int, _y:Int,
+        hud:Hud, 
+        pathToImage:String, 
+        _dialog:String,
+        itemNameToShow:String, 
+        _itemName:String)
     {
         super();
 
@@ -26,6 +35,8 @@ class InventoryBox extends Sprite
         dialog = _dialog;
         active = false;
         itemName = _itemName;
+        this.hud = hud;
+        this.itemNameToShow = itemNameToShow;
 
         // Design the item box
         this.graphics.beginFill(0x342929, 0.8);
@@ -40,11 +51,26 @@ class InventoryBox extends Sprite
         itemImageBitmap.x = _x;
         itemImageBitmap.y = _y;
         addChild(itemImageBitmap);
-
+        
+        // Show item name on hover
+        var itemName = showItemName.bind(_, this.itemNameToShow);
+        this.addEventListener(MouseEvent.MOUSE_OVER, itemName);
+        this.addEventListener(MouseEvent.MOUSE_OUT, hideItemName);
     }
 
     public function xcoord():Float
     {
         return this.x;
     }
+    
+    public function showItemName(e:Dynamic, itemNameText:String)
+	{
+		hud.hideItemNameBox();
+		hud.showItemNameBox(itemNameText);
+	}
+    
+    public function hideItemName(e:Dynamic)
+	{
+		hud.hideItemNameBox();
+	}
 }

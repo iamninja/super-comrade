@@ -40,7 +40,7 @@ class Inventory extends Sprite
         this.activeItem = null;
         if (_tracker.inInventory["lemons"] == 1)
         {
-            lemons = new InventoryBox(800 - (60*numberOfItems) - (5*numberOfItems), 10, "img/items_inv/lemons.png", "My lemons.", "lemons");
+            lemons = new InventoryBox(800 - (60*numberOfItems) - (5*numberOfItems), 10, hud, "img/items_inv/lemons.png", "My lemons.", "Lemons", "lemons");
             var lemonsInventoryDialog = itemInInventoryClicked.bind(_, lemons.dialog);
             lemons.addEventListener(MouseEvent.CLICK, lemonsInventoryDialog);
             addChild(lemons);
@@ -50,7 +50,7 @@ class Inventory extends Sprite
 
         if (_tracker.inInventory["lemonade"] == 1)
         {
-            lemonade = new InventoryBox(800 - (60*numberOfItems) - (5*numberOfItems), 10, "img/items_inv/lemonade.png", "My delicious lemonade.", "lemonade");
+            lemonade = new InventoryBox(800 - (60*numberOfItems) - (5*numberOfItems), 10, hud,  "img/items_inv/lemonade.png", "My delicious lemonade.", "Lemonade", "lemonade");
             var lemonadeInventoryDialog = itemInInventoryClicked.bind(_, lemonade.dialog);
             lemonade.addEventListener(MouseEvent.CLICK, lemonadeInventoryDialog);
             addChild(lemonade);
