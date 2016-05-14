@@ -102,6 +102,7 @@ class SceneManager extends Sprite
         trace(e.currentTarget);
         trace(e.currentTarget.getHome());
         trace(e.currentTarget.getTarget());
+        this.inventory.clearActiveItem();
         loadScene(e.currentTarget.getTarget());
     }
 

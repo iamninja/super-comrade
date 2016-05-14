@@ -70,21 +70,28 @@ class Inventory extends Sprite
     {
         hud.hideDialogBox();
         hud.showDialogBox(dialog + " (" + e.currentTarget.xi + ", " + e.currentTarget.yi + ")");
-        activeItemName = e.currentTarget.itemName;
-        if (activeItem == null)
+        this.activeItemName = e.currentTarget.itemName;
+        if (this.activeItem == null)
         {
             // trace("add active");
             // removeChild(activeItem);
-            activeItem = new ActiveItem(e.currentTarget.xi, e.currentTarget.yi, e.currentTarget.itemName);
-            addChild(activeItem);
+            this.activeItem = new ActiveItem(e.currentTarget.xi, e.currentTarget.yi, e.currentTarget.itemName);
+            addChild(this.activeItem);
         }
         else if (!(this.activeItemName == this.activeItem.itemName))
         {
             // trace("add active2");
-            removeChild(activeItem);
-            activeItem = new ActiveItem(e.currentTarget.xi, e.currentTarget.yi, e.currentTarget.itemName);
-            addChild(activeItem);
+            removeChild(this.activeItem);
+            this.activeItem = new ActiveItem(e.currentTarget.xi, e.currentTarget.yi, e.currentTarget.itemName);
+            addChild(this.activeItem);
         }
 
+    }
+    
+    public function clearActiveItem()
+    {
+        removeChild(this.activeItem);
+        this.activeItem = null;
+        this.activeItemName = null;
     }
 }
