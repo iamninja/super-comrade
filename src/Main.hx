@@ -58,7 +58,30 @@ class Main extends Sprite
 	{
 		// static entry point
 		Lib.current.stage.align = openfl.display.StageAlign.TOP_LEFT;
-		Lib.current.stage.scaleMode = openfl.display.StageScaleMode.NO_SCALE;
+		// Lib.current.stage.scaleMode = openfl.display.StageScaleMode.NO_SCALE;
+        
+        #if mobile
+        // Compute scaling
+        var _stageWidth = Lib.current.stage.stageWidth;
+        var _stageHeight = Lib.current.stage.stageHeight;
+        trace(_stageWidth);
+        trace(_stageHeight);
+        var scaleForWidth =  _stageWidth / 800;
+        trace(scaleForWidth);
+        var scaleForHeight = _stageHeight / 600;
+        trace(scaleForHeight);
+        var scale = Math.min(scaleForHeight, scaleForWidth);
+        trace(scale);
+        // Center the stage
+        Lib.current.stage.x = Math.abs(_stageWidth - (800 * scale)) / 2;
+        Lib.current.stage.y = Math.abs(_stageHeight - (600 * scale)) / 2;
+        trace(Lib.current.stage.x);
+        trace(Lib.current.stage.y);
+        // Scale
+        Lib.current.stage.scaleX = scale;
+        Lib.current.stage.scaleY = scale;
+        #end
+        
 		currentScene = new Main();
 		Lib.current.addChild(currentScene);
 	}
@@ -68,7 +91,8 @@ class Main extends Sprite
 		trace("Start!!");
 	}
 
-	public function startClicked(e:Dynamic) {
+	public function startClicked(e:Dynamic)
+    {
 		trace('Start button clicked.');
 		Lib.current.removeChild(currentScene);
 

@@ -9,8 +9,10 @@
 	<app main="Main" file="Comrade" path="bin" />
 
 	<window background="#333333" fps="60" />
+    <window width="0" height="0" />
 	<window width="800" height="600" unless="mobile" resizable="false" />
 	<window orientation="landscape" vsync="false" antialiasing="0" if="cpp" />
+    <window if="mobile" fullscreen="true" />
 
 	<!-- classpath, haxe libs -->
 	<source path="src" />
