@@ -17,7 +17,7 @@ class Exit extends Sprite
 {
     public var homeAlias:String;
     public var targetAlias:String;
-    public var itemBitmap:Bitmap;
+    public var arrowItemBitmap:Bitmap;
     public var mouseIsOver:Bool;
     public var animationOffsetX:Int;
     public var animationOffsetY:Int;
@@ -55,34 +55,34 @@ class Exit extends Sprite
         this.buttonMode = true;
         
         var arrowBitmapData = Assets.getBitmapData("img/cursors/arro1.png");
-        itemBitmap = new Bitmap(arrowBitmapData);
-        itemBitmap.x = arrowPosition[0];
-        itemBitmap.y = arrowPosition[1];
+        arrowItemBitmap = new Bitmap(arrowBitmapData);
+        arrowItemBitmap.x = arrowPosition[0];
+        arrowItemBitmap.y = arrowPosition[1];
         if (arrowType == "right")
         { 
-            itemBitmap.rotation = 0;
+            arrowItemBitmap.rotation = 0;
             animationOffsetX = 5;
             animationOffsetY = 0;
         }
         if (arrowType == "down")
         { 
-            itemBitmap.rotation = 90;
+            arrowItemBitmap.rotation = 90;
             animationOffsetX = 0;
             animationOffsetY = 5;
         }
         if (arrowType == "left")
         { 
-            itemBitmap.rotation = 180;
+            arrowItemBitmap.rotation = 180;
             animationOffsetX = -5;
             animationOffsetY = 0;
         }
         if (arrowType == "up")
         { 
-            itemBitmap.rotation = 270;
+            arrowItemBitmap.rotation = 270;
             animationOffsetX = 0;
             animationOffsetY = -5;
         }
-        addChild(itemBitmap);
+        addChild(arrowItemBitmap);
         
         this.addEventListener(MouseEvent.MOUSE_OVER, tweenArrow);
         this.addEventListener(MouseEvent.MOUSE_OUT, stopTweenArrow);
@@ -104,15 +104,15 @@ class Exit extends Sprite
         if (!mouseIsOver)
         {
             mouseIsOver = true;
-            Actuate.tween(itemBitmap, 0.5,  {x: itemBitmap.x + animationOffsetX, y: itemBitmap.y + animationOffsetY}).ease(Quad.easeOut).reverse().repeat();
+            Actuate.tween(arrowItemBitmap, 0.5,  {x: arrowItemBitmap.x + animationOffsetX, y: arrowItemBitmap.y + animationOffsetY}).ease(Quad.easeOut).reverse().repeat();
         }
     }
     
     public function stopTweenArrow(e:Dynamic)
     {
         mouseIsOver = false;
-        Actuate.stop(itemBitmap);
-        itemBitmap.x = arrowStartPosition[0];
-        itemBitmap.y = arrowStartPosition[1]; 
+        Actuate.stop(arrowItemBitmap);
+        arrowItemBitmap.x = arrowStartPosition[0];
+        arrowItemBitmap.y = arrowStartPosition[1]; 
     }
 }

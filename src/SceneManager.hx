@@ -19,11 +19,15 @@ class SceneManager extends Sprite
 {
     public var exitRoomToMap:Exit;
     public var exitMapToRoom:Exit;
+    public var exitLibraryToMap:Exit;
+    public var exitMapToLibrary:Exit;
 
     public var roomExits:Array<Exit>;
+    public var libraryExits:Array<Exit>;
     public var mapExits:Array<Exit>;
 
 	public var roomScene:RoomScene;
+    public var libraryScene:LibraryScene;
     public var mapScene:MapScene;
 
     public var currentScene:Scene;
@@ -41,6 +45,7 @@ class SceneManager extends Sprite
 
 		roomScene = new RoomScene(hud, inventory, tracker);
         // Define and create all exits
+        // Room exits
         var pointsRoomToMap = [
             [720, 80],
             [800, 80],
@@ -50,6 +55,11 @@ class SceneManager extends Sprite
         ];
         exitRoomToMap = new Exit("room", "map", pointsRoomToMap, "right", [733, 262], "To Map");
         roomExits = [exitRoomToMap];
+        // Library exits
+        var pointsLibraryToMap = [[0,0],[100,0],[100,100],[0,100],[0,0]];
+        exitLibraryToMap = new Exit("library", "map", pointsLibraryToMap, "left", [100,100], "To Map");
+        libraryExits = [exitLibraryToMap];
+        // Map exits
         var pointsMapToRoom = [
             [210, 133],
             [276, 214],
@@ -61,7 +71,9 @@ class SceneManager extends Sprite
             [284, 266]
         ];
         exitMapToRoom = new Exit("map", "room", pointsMapToRoom, "down", [336, 135], "To Home");
-        mapExits = [exitMapToRoom];
+        var pointsMapToLibrary = [[0,0],[100,0],[100,100],[0,100],[0,0]];
+        exitMapToLibrary = new Exit("map", "library", pointsMapToLibrary, "down", [650,120], "To Library");
+        mapExits = [exitMapToRoom, exitMapToLibrary];
 
 
 		addChild(roomScene);
@@ -109,17 +121,19 @@ class SceneManager extends Sprite
     private function sceneFromAlias(alias:String, hudToPass:Hud, inventoryToPass:Inventory, trackerToPass:Tracker):Scene
     {
         switch (alias) {
-            case "room" : return new RoomScene(hudToPass, inventoryToPass, trackerToPass);
-            case "map"  : return new MapScene(hudToPass, inventoryToPass, trackerToPass);
-            default     : return null;
+            case "room"     : return new RoomScene(hudToPass, inventoryToPass, trackerToPass); 
+            case "map"      : return new MapScene(hudToPass, inventoryToPass, trackerToPass);
+            case "library"  : return new LibraryScene(hudToPass, inventoryToPass, trackerToPass);
+            default         : return null;
         }
     }
     private function exitsFromAlias(alias:String):Array<Exit>
     {
         switch (alias) {
-            case "room" : return roomExits;
-            case "map"  : return mapExits;
-            default     : return null;
+            case "room"     : return roomExits;
+            case "map"      : return mapExits;
+            case "library"  : return libraryExits;
+            default         : return null;
         }
     }
 
@@ -136,5 +150,5 @@ class SceneManager extends Sprite
         trace("mouse out of exit");
         hud.hideItemNameBox();
     }
-   
+
 }
