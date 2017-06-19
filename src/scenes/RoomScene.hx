@@ -28,20 +28,12 @@ class RoomScene extends Scene
     public var lemonade:PickupItem;
 
 	//var alias = "room";
-	var inited:Bool;
 
 	// Entry Point
 
-	function resize(e)
+	override function init()
 	{
-		if (!inited) init();
-		// else (resize or orientation change)
-	}
-
-	function init()
-	{
-		if (inited) return;
-		inited = true;
+		super.init();
 
 		// Background
 		_background = new Background("img/backgrounds/roomComradeD.jpg");
@@ -121,26 +113,6 @@ class RoomScene extends Scene
         }
 	}
 
-	public function new(_hud:Hud, _inventory:Inventory, _tracker:Tracker)
-	{
-		tracker = _tracker;
-		hud = _hud;
-        inventory = _inventory;
-		super();
-		addEventListener(Event.ADDED_TO_STAGE, added);
-
-		// Assets:
-		// openfl.Assets.getBitmapData("img/assetname.jpg");
-	}
-
-	function added(e)
-	{
-		removeEventListener(Event.ADDED_TO_STAGE, added);
-		stage.addEventListener(Event.RESIZE, resize);
-
-		init();
-	}
-
 	//public static function main()
 	//{
 	//	// static entry point
@@ -148,41 +120,5 @@ class RoomScene extends Scene
 	//	Lib.current.stage.scaleMode = openfl.display.StageScaleMode.NO_SCALE;
 	//	Lib.current.addChild(new RoomScene(_hud, tracker));
 	//}
-
-	private function startGame()
-	{
-		trace("Start!!");
-	}
-
-	private function showItemDialog(e:Dynamic, dialogText:String)
-	{
-		hud.hideDialogBox();
-		hud.showDialogBox(dialogText);
-	}
-
-	private function showItemName(e:Dynamic, itemNameText:String)
-	{
-		hud.hideItemNameBox();
-		hud.showItemNameBox(itemNameText);
-	}
-
-	private function hideItemName(e:Dynamic)
-	{
-		hud.hideItemNameBox();
-	}
-
-	private function pickupItem(e:Dynamic, item:Sprite, itemDialog:String)
-	{
-		trace(e.currentTarget.itemName);
-		tracker.itemPicked(e.currentTarget.itemName, 1);
-		removeChild(e.currentTarget);
-        showItemDialog(e, itemDialog);
-        inventory.reloadInventory(tracker);
-	}
-
-    private function showInventoryDialog(e:Dynamic)
-    {
-        trace(Type.getClassName(Type.getClass(e.currentTarget)));
-    }
 
 }
